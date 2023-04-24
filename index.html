@@ -23,6 +23,14 @@
         height: 12.5%;
         box-sizing: content-box;
       }
+      .index_bottom{
+        position: relative;
+        top: 5em;  
+      }
+      .index_left{
+        position: relative;
+        right: 2em;  
+      }
       .odd {
         background-color: #f0d9b5;
       }
@@ -52,7 +60,14 @@
           } else {
             text += "odd '";
           }
-          text += "></div>";
+          text += ">";
+          if (i===0){
+            text += "<span class= 'index_left'>"+j+"</span>";
+          }
+          if (j === 1) {
+            text += "<span class= 'index_bottom'>"+letters[i]+"</span>";
+          }
+          text+="</div>";
         }
         text += "</div>";
       }
