@@ -16,20 +16,20 @@
         margin: 0;
         border: 1px solid black;
       }
-      .col{
+      .col {
         flex: 1;
       }
       .square {
         height: 12.5%;
         box-sizing: content-box;
       }
-      .index_bottom{
+      .index_bottom {
         position: relative;
-        top: 5em;  
+        top: 5em;
       }
-      .index_left{
+      .index_left {
         position: relative;
-        right: 2em;  
+        right: 2em;
       }
       .odd {
         background-color: #f0d9b5;
@@ -61,17 +61,16 @@
             text += "odd '";
           }
           text += ">";
-          if (i===0){
-            text += "<span class= 'index_left'>"+j+"</span>";
+          if (i === 0) {
+            text += "<span class= 'index_left'>" + j + "</span>";
           }
           if (j === 1) {
-            text += "<span class= 'index_bottom'>"+letters[i]+"</span>";
+            text += "<span class= 'index_bottom'>" + letters[i] + "</span>";
           }
-          text+="</div>";
+          text += "</div>";
         }
         text += "</div>";
       }
-
       document.getElementById("board").innerHTML = text;
     </script>
   </body>
