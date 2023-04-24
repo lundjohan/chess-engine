@@ -72,6 +72,10 @@
         text += "</div>";
       }
       document.getElementById("board").innerHTML = text;
+      let rook = "\u2656";
+      let span = document.createElement("span");
+      span.innerHTML = rook;
+      document.getElementById("C3").appendChild(span);
     </script>
   </body>
 </html>
