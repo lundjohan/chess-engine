@@ -92,9 +92,82 @@
           text += "</div>";
         }
         $("#board").html(text);
-        let white_rook2 = "\u2656";
-        let span = $("<span>").html(PIECES.white_rook);
-        $("#C3").append(span);
+        addStartingPieces();
+        /*let a1 = $("<span>").html(PIECES.white_rook);
+        $("#A1").append(a1);
+        let e1 = $("<span>").html(PIECES.white_king);
+        $("#E1").append(e1);
+        let h1 = $("<span>").html(PIECES.white_rook);
+        $("#H1").append(h1);
+        let a8 = $("<span>").html(PIECES.black_rook);
+        $("#A8").append(a8);*/
+        function addStartingPieces() {
+          //add white pawns
+          for (let i = 0; i < 8; i++) {
+            let pawn = $("<span>").html(PIECES.white_pawn);
+            $("#" + letters[i] + "2").append(pawn);
+          }
+          //add white rooks
+          let rook1 = $("<span>").html(PIECES.white_rook);
+          $("#A1").append(rook1);
+          let rook2 = $("<span>").html(PIECES.white_rook);
+          $("#H1").append(rook2);
+
+          //add white knights
+          let knight1 = $("<span>").html(PIECES.white_knight);
+          $("#B1").append(knight1);
+          let knight2 = $("<span>").html(PIECES.white_knight);
+          $("#G1").append(knight2);
+
+          //add white bishops
+          let bishop1 = $("<span>").html(PIECES.white_bishop);
+          $("#C1").append(bishop1);
+          let bishop2 = $("<span>").html(PIECES.white_bishop);
+          $("#F1").append(bishop2);
+
+          //add white queen
+          let queen = $("<span>").html(PIECES.white_queen);
+          $("#D1").append(queen);
+
+          //add white king
+          let king = $("<span>").html(PIECES.white_king);
+          $("#E1").append(king);
+
+          //add black pawns
+          for (let i = 0; i < 8; i++) {
+            let pawn = $("<span>").html(PIECES.black_pawn);
+            $("#" + letters[i] + "7").append(pawn);
+          }
+
+          //add black rooks
+          let rook3 = $("<span>").html(PIECES.black_rook);
+          $("#A8").append(rook3);
+
+          let rook4 = $("<span>").html(PIECES.black_rook);
+          $("#H8").append(rook4);
+
+          //add black knights
+          let knight3 = $("<span>").html(PIECES.black_knight);
+          $("#B8").append(knight3);
+
+          let knight4 = $("<span>").html(PIECES.black_knight);
+          $("#G8").append(knight4);
+
+          //add black bishops
+          let bishop3 = $("<span>").html(PIECES.black_bishop);
+          $("#C8").append(bishop3);
+
+          let bishop4 = $("<span>").html(PIECES.black_bishop);
+          $("#F8").append(bishop4);
+
+          //add black queen
+          let queen2 = $("<span>").html(PIECES.black_queen);
+          $("#D8").append(queen2);
+
+          //add black king
+          let king2 = $("<span>").html(PIECES.black_king);
+          $("#E8").append(king2);
+        }
       });
     </script>
   </body>
