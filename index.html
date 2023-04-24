@@ -1,6 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Johan's Chess Game</title>
+    <style>
+      body {
+        margin: 3em;
+        padding: 0;
+      }
+      #board {
+        display: flex;
+        flex-wrap: wrap;
+        border-spacing: 0;
+        width: 80vmin;
+        height: 80vmin;
+        margin: 0;
+        border: 1px solid black;
+      }
+      .col{
+        flex: 1;
+      }
+      .square {
+        height: 12.5%;
+        box-sizing: content-box;
+      }
+      .odd {
+        background-color: #f0d9b5;
+      }
+
+      .square:even {
+        background-color: #b58863;
+      }
+    </style>
+  </head>
   <body>
     <h1>Chess Game</h1>
+    <div id="board"></div>
+
+    <script>
+      let letters = ["A", "B", "C", "D", "E", "F", "G", "H"];
+      let text = "";
+
+      for (let i = 0; i < 8; i++) {
+        text += "<div class = 'col'>";
+        for (let j = 8; j >= 1; j--) {
+          //e.g. class="square B6"
+          //A1, B2 has the same color etc
+          text += "<div id=" + letters[i] + j + " ";
+          text += "class='square ";
+          if ((i + j) % 2 === 0) {
+            text += "even '";
+          } else {
+            text += "odd '";
+          }
+          text += "></div>";
+        }
+        text += "</div>";
+      }
+
+      document.getElementById("board").innerHTML = text;
+    </script>
   </body>
 </html>
