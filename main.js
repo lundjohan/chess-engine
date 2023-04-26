@@ -1,1 +1,0 @@
-console.log('White rook: \u2656');
