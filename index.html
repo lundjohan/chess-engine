@@ -40,7 +40,7 @@
         background-color: #f0d9b5;
       }
 
-      .square:even {
+      .square.even {
         background-color: #b58863;
       }
     </style>
@@ -94,7 +94,7 @@
         }
         $("#board").html(text);
         addStartingPieces();
-        
+
         function addStartingPieces() {
           //add white pawns
           for (let i = 0; i < 8; i++) {
