@@ -2,9 +2,8 @@ To run, write in prompt (nodejs must be installed):
 node server.js 
 => In browser, go to localhost:3000
 
-
 Notice that I added in tsconfig.json file 
-"build": "tsc" => this make sure I don't have to write 'tsc' in terminal everytime I run 'npm test' etc
+"test": "tsc && mocha --reporter list" => this make sure I don't have to write 'tsc' in terminal everytime I run 'npm test dist/test' etc
 
 tsconfig.json file I added 
 "target": "es2015". I wanted classes in .js
