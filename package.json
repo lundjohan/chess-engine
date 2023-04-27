@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "tsc && mocha --reporter list",
+    "test": "tsc && mocha --reporter list dist/test",
     "build": "tsc"
   },
   "devDependencies": {
