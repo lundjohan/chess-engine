@@ -58,7 +58,6 @@ export class Board {
         }
     }
     private move(from: Square, to: Square) {
-        console.log("moving from " + from + "with piece " + this.squares[from] + " to " + to);
         //en passant made?
         if (this.getPieceAt(from) === (Piece.WHITE_PAWN || Piece.BLACK_PAWN)
             && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
@@ -69,14 +68,8 @@ export class Board {
         }
 
         //move piece
-        console.log("\nmoving piece " + this.squares[from] + " from " + from);
-
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
-
-        console.log("moved piece " + this.squares[to] + " to " + to);
-
-        
 
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
