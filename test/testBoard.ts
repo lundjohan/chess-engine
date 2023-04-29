@@ -59,10 +59,10 @@ describe('moveFEN() - en passant added when moving white pawn 2 steps', function
 describe('moveFEN() - en passant added when moving black', function () {
     const d = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     //move white, to get to black
-    d.moveFEN('a7a5'); //svart fungerar inte, men vit gör det. board representation?.
+    d.moveFEN('a2a4'); 
 
     //now move black
-    //d.moveFEN('a2a4');
+    d.moveFEN('a7a5');
     it('should move pawn two steps forward', function () {
         assert.equal(d.getPieceAt(Square.a5), 'p');
         assert.equal(d.getPieceAt(Square.a7), undefined);
