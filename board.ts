@@ -59,7 +59,8 @@ export class Board {
     }
     private move(from: Square, to: Square) {
         //en passant made?
-        if (this.getPieceAt(from) === (Piece.WHITE_PAWN || Piece.BLACK_PAWN)
+        //det är första raden nedan som är fel. Byter jag på Piece.BLACK_PAWN och Piece.WHITE_PAWN så funkar det. 
+        if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN 
             && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
             /*find square for en passant
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
