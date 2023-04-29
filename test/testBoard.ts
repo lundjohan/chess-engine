@@ -5,11 +5,17 @@ import { Square } from '../enums';
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 describe('newGame() - initiation of Board members', function () {
     const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
-    it('should have pieces at correct places', function () {
+    it('should have black bishop at c8', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
-        assert.equal(result.getPieceAt(Square.h2), 'P');
-        assert.equal(result.getPieceAt(Square.a3), undefined);
-
+    });
+    it ('should have black pawn at a7', function () {
+        assert.equal(result.getPieceAt(Square.a7), 'p');
+    });
+    it ('should have white pawn at h2', function () {
+    assert.equal(result.getPieceAt(Square.h2), 'P');
+    });
+    it ('should show undefined for empty square a3', function () {
+    assert.equal(result.getPieceAt(Square.a3), undefined);
     });
     it('should have set who to play next correctly', function () {
         assert.equal(result.whiteMoveNext, true);
@@ -51,22 +57,17 @@ describe('moveFEN() - en passant added when moving pawn 2 steps', function () {
     });
 });
 describe('moveFEN() - en passant added when moving black', function () {
-    const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
-    console.log ("c.enPassantSq before white move", c.enPassantSq);
+    const d = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     //move white, to get to black
-    c.moveFEN('a2a3');
+    d.moveFEN('a7a5'); //svart fungerar inte, men vit gör det. board representation?.
 
-
-    console.log("c.enPassantSq after white move", c.enPassantSq);
     //now move black
-    c.moveFEN('a7a5');
-    console.log("c.enPassantSq after black move", c.enPassantSq);
+    //d.moveFEN('a2a4');
     it('should move pawn two steps forward', function () {
-        
-        assert.equal(c.getPieceAt(Square.a5), 'p');
-        assert.equal(c.getPieceAt(Square.a7), undefined);
+        assert.equal(d.getPieceAt(Square.a5), 'p');
+        assert.equal(d.getPieceAt(Square.a7), undefined);
     });
-    it('should have created correct en passant value on board', function () {
-        assert.equal(c.enPassantSq, Square.a6);
+    it('should create correct en passant value on board', function () {
+        assert.equal(d.enPassantSq, Square.a6);
     });
 });
