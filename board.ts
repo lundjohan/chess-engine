@@ -20,7 +20,7 @@ export class Board {
     halfMoveClock: string;
 
     //Fullmove number: Starts at 1, incremented after black's move
-    fullMoveNumber: string;
+    fullMoveNumber: number;
 
     constructor(obj: any) {
         this.squares = obj.squares;
@@ -127,7 +127,7 @@ export class Board {
         result.castlingRights = sixFields[2];
         result.enPassantSq = Square[sixFields[3]];
         result.halfMoveClock = sixFields[4];
-        result.fullMoveNumber = sixFields[5];
+        result.fullMoveNumber = parseInt(sixFields[5]);
         return new Board(result);
     }
 }

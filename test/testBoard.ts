@@ -30,7 +30,7 @@ describe('newGame() - initiation of Board members', function () {
         assert.equal(result.halfMoveClock, '0');
     });
     it('should have correct fullmove number', function () {
-        assert.equal(result.fullMoveNumber, '2');
+        assert.equal(result.fullMoveNumber, 2);
     });
 });
 describe('moveFEN() - moving pieces', function () {
