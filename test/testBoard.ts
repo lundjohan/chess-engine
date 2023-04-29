@@ -45,7 +45,7 @@ describe('moveFEN() - moving pieces', function () {
         assert.equal(b.whiteMoveNext, false);
     });
 });
-describe('moveFEN() - en passant added when moving pawn 2 steps', function () {
+describe('moveFEN() - en passant added when moving white pawn 2 steps', function () {
     const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it('should move a pawn two step forward', function () {
         c.moveFEN('a2a4');
