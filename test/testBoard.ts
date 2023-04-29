@@ -8,14 +8,14 @@ describe('newGame() - initiation of Board members', function () {
     it('should have black bishop at c8', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
     });
-    it ('should have black pawn at a7', function () {
+    it('should have black pawn at a7', function () {
         assert.equal(result.getPieceAt(Square.a7), 'p');
     });
-    it ('should have white pawn at h2', function () {
-    assert.equal(result.getPieceAt(Square.h2), 'P');
+    it('should have white pawn at h2', function () {
+        assert.equal(result.getPieceAt(Square.h2), 'P');
     });
-    it ('should show undefined for empty square a3', function () {
-    assert.equal(result.getPieceAt(Square.a3), undefined);
+    it('should show undefined for empty square a3', function () {
+        assert.equal(result.getPieceAt(Square.a3), undefined);
     });
     it('should have set who to play next correctly', function () {
         assert.equal(result.whiteMoveNext, true);

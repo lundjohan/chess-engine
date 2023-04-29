@@ -60,13 +60,13 @@ export class Board {
     private move(from: Square, to: Square) {
         //en passant made?
         //det är första raden nedan som är fel. Byter jag på Piece.BLACK_PAWN och Piece.WHITE_PAWN så funkar det. 
-        if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN 
+        if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
             && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
             /*find square for en passant
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
             */
             this.enPassantSq = (to - from) / 2 + from;
-            console.log ("\nthis.enPassantSq" + this.enPassantSq);
+            console.log("\nthis.enPassantSq" + this.enPassantSq);
         }
 
         //move piece
@@ -136,5 +136,5 @@ When direction is south, return value will be prefixed with a minus sign.
 (Should this be replaced with some kind of vector implemenation?)
 */
 function distanceNorthBetween(from: Square, to: Square): number {
-    return (to  - from) / 8 ;
+    return (to - from) / 8;
 }
