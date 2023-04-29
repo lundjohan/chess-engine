@@ -50,3 +50,23 @@ describe('moveFEN() - en passant added when moving pawn 2 steps', function () {
         assert.equal(c.enPassantSq, Square.a3);
     });
 });
+describe('moveFEN() - en passant added when moving black', function () {
+    const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+    console.log ("c.enPassantSq before white move", c.enPassantSq);
+    //move white, to get to black
+    c.moveFEN('a2a3');
+
+
+    console.log("c.enPassantSq after white move", c.enPassantSq);
+    //now move black
+    c.moveFEN('a7a5');
+    console.log("c.enPassantSq after black move", c.enPassantSq);
+    it('should move pawn two steps forward', function () {
+        
+        assert.equal(c.getPieceAt(Square.a5), 'p');
+        assert.equal(c.getPieceAt(Square.a7), undefined);
+    });
+    it('should have created correct en passant value on board', function () {
+        assert.equal(c.enPassantSq, Square.a6);
+    });
+});
