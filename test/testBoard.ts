@@ -71,3 +71,18 @@ describe('moveFEN() - en passant added when moving black', function () {
         assert.equal(d.enPassantSq, Square.a6);
     });
 });
+describe('moveFEN() - full move number', function () {
+    const e = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+    it('should here be initiated to 2', function () {
+        assert.equal(e.fullMoveNumber, 2);
+    });
+    it('should not increase after white move', function () {
+        e.moveFEN('b1c3');
+        assert.equal(e.fullMoveNumber, 2);
+    });
+    it('should increase after black move', function () {
+        e.moveFEN('b8c6');
+        assert.equal(e.fullMoveNumber, 3);
+    }
+    );
+});
