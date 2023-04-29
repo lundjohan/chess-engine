@@ -20,3 +20,5 @@ Installation for Mocha:
 
 This will end up being a client. Why writing a client when there exists Xboard etc?
 Well I want to create my engine incrementally, so it makes sense.
+
+The client should incrementally implement the Universal Chess Interface (UCI) protocol.
