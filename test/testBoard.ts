@@ -2,16 +2,15 @@ import { assert } from 'chai';
 import { Board } from '../board';
 import { Square } from '../enums';
 
-const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 describe('newGame() - initiation of Board members', function () {
+    const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it('should have pieces at correct places', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
         assert.equal(result.getPieceAt(Square.h2), 'P');
         assert.equal(result.getPieceAt(Square.a3), undefined);
 
     });
-
     it('should have set who to play next correctly', function () {
         assert.equal(result.whiteMoveNext, true);
     });
@@ -28,8 +27,8 @@ describe('newGame() - initiation of Board members', function () {
         assert.equal(result.fullMoveNumber, '2');
     });
 });
-const b = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
 describe('moveFEN() - moving pieces', function () {
+    const b = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it('should move a pawn one step forward', function () {
         b.moveFEN('a2a3');
         assert.equal(b.getPieceAt(Square.a3), 'P');
@@ -40,8 +39,8 @@ describe('moveFEN() - moving pieces', function () {
         assert.equal(b.whiteMoveNext, false);
     });
 });
-const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
 describe('moveFEN() - en passant added when moving pawn 2 steps', function () {
+    const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it('should move a pawn two step forward', function () {
         c.moveFEN('a2a4');
         assert.equal(c.getPieceAt(Square.a4), 'P');
