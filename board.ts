@@ -22,15 +22,13 @@ export class Board {
     //Fullmove number: Starts at 1, incremented after black's move
     fullMoveNumber: string;
 
-    constructor(squares: string[], whiteMoveNext: boolean = true,
-        castlingRights: string = '-', enPassantSq: string = '-',
-        halfMoveClock: string = '0', fullMoveNumber: string = '1') {
-        this.squares = squares;
-        this.whiteMoveNext = whiteMoveNext;
-        this.castlingRights = castlingRights;
-        this.enPassantSq = enPassantSq;
-        this.halfMoveClock = halfMoveClock;
-        this.fullMoveNumber = fullMoveNumber;
+    constructor(obj: any) {
+        this.squares = obj.squares;
+        this.whiteMoveNext = obj.whiteNextMove;
+        this.castlingRights = obj.castlingRights;
+        this.enPassantSq = obj.enPassantSq;
+        this.halfMoveClock = obj.halfMoveClock;
+        this.fullMoveNumber = obj.fullMoveNumber;
     }
     getPieceAt(sq: Square): string {
         return this.squares[sq];
@@ -71,13 +69,13 @@ export class Board {
                 }
             }
         }
-
-
-        let whiteNextMove = sixFields[1] === "w" ? true : false;
-        let castlingRights = sixFields[2];
-        let enPassantSq = sixFields[3];
-        let halfMoveClock = sixFields[4];
-        let fullMoveNumber = sixFields[5];
-        return new Board(squares, whiteNextMove, castlingRights, enPassantSq, halfMoveClock, fullMoveNumber);
+        let result:any = {};
+        result.squares = squares;
+        result.whiteNextMove = sixFields[1] === "w" ? true : false;
+        result.castlingRights = sixFields[2];
+        result.enPassantSq = sixFields[3];
+        result.halfMoveClock = sixFields[4];
+        result.fullMoveNumber = sixFields[5];
+        return new Board(result);
     }
 }
