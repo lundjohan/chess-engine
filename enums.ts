@@ -8,3 +8,9 @@ export enum Square{
     a7 = 48, b7, c7, d7, e7, f7, g7, h7,
     a8 = 56, b8, c8, d8, e8, f8, g8, h8
 }
+export enum Piece{
+    WHITE_KING = 'K', WHITE_QUEEN = 'Q', WHITE_ROOK = 'R', 
+    WHITE_BISHOP = 'B', WHITE_KNIGHT = 'N', WHITE_PAWN = 'P',
+    BLACK_KING = 'k', BLACK_QUEEN = 'q', BLACK_ROOK = 'r',
+    BLACK_BISHOP = 'b', BLACK_KNIGHT = 'n', BLACK_PAWN = 'p'
+}

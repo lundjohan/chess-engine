@@ -1,4 +1,4 @@
-import { Square } from './enums';
+import { Square, Piece } from './enums';
 /*
 Chess Board 
 */
@@ -33,6 +33,42 @@ export class Board {
     getPieceAt(sq: Square): string {
         return this.squares[sq];
     }
+    /*
+    The move format is in long algebraic notation.
+    Examples:  e2e4, e7e5, e1g1 (white short castling), e7e8q (for promotion)
+    */
+    public moveFEN(fenStr: string) {
+        let fromSq: string = fenStr.substring(0, 2);
+        let fromInd: number = Square[fromSq];
+        let toSq: string = fenStr.substring(2, 4);
+        let toInd: number = Square[toSq];
+
+        //promotion
+        if (fenStr.length === 5) {
+        }
+        //castling 
+        //refactor to use this.castleRights instead
+        else if (this.squares[fromInd] === (Piece.WHITE_KING || Piece.BLACK_KING)
+            && (fromSq === 'e1' && (toSq === 'g1' || toSq === 'c1'))
+            || (fromSq === 'e8' && (toSq === 'g8' || toSq === 'c8'))) {
+            this.doCastleMove(fromSq, toSq);
+        }
+        else {
+            this.move(fromInd,toInd)
+        }
+    }
+    private move(from:Square, to:Square){
+        this.squares[to] = this.squares[from];
+        this.squares[from] = undefined;
+
+        //pieces taken?
+        //en passant made?
+        //move counter ++
+        //halfmove clock ++ ?
+    }
+    private doCastleMove(fromSq: string, toSq: string) {
+    }
+  
     /*One FEN string or record consists of six fields separated by a space character: 
     1. Piece placement
     2. Active color
@@ -69,7 +105,7 @@ export class Board {
                 }
             }
         }
-        let result:any = {};
+        let result: any = {};
         result.squares = squares;
         result.whiteNextMove = sixFields[1] === "w" ? true : false;
         result.castlingRights = sixFields[2];
