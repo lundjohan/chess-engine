@@ -83,7 +83,6 @@ export class Board {
 
         //pieces
         let ranks: string[] = sixFields[0].split("/");
-        console.log("ranks.length: " + ranks.length);
 
         //"N.B. - the FEN string goes from a8 to h1
         for (let i = 0; i < ranks.length; i++) {
