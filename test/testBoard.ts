@@ -34,4 +34,8 @@ describe('moveFEN() - moving pieces', function () {
         assert.equal(b.getPieceAt(Square.a3), 'P');
         assert.equal(b.getPieceAt(Square.a2), undefined);
     });
+    it('should after move change turn from white to black', function () {
+        //it should now be black's turn
+        assert.equal(b.whiteMoveNext, false);
+    });
 });

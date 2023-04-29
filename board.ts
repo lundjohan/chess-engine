@@ -60,6 +60,7 @@ export class Board {
     private move(from:Square, to:Square){
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
+        this.whiteMoveNext = !this.whiteMoveNext;
 
         //pieces taken?
         //en passant made?
