@@ -65,6 +65,7 @@ export class Board {
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
             */
             this.enPassantSq = (to - from) / 2 + from;
+            console.log ("\nthis.enPassantSq" + this.enPassantSq);
         }
 
         //move piece
@@ -134,5 +135,5 @@ When direction is south, return value will be prefixed with a minus sign.
 (Should this be replaced with some kind of vector implemenation?)
 */
 function distanceNorthBetween(from: Square, to: Square): number {
-    return to / 8 - from / 8;
+    return (to  - from) / 8 ;
 }
