@@ -13,7 +13,7 @@ export class Board {
     castlingRights: string;
 
     //Possible values: - (no en passant), or a square coordinate (e.g. "e3"
-    enPassantSq: string;
+    enPassantSq: Square;
 
     /*Halfmove clock: Nr of halfmoves since the last pawn advance or capture. 
       When 100 (50 full moves), it's a draw.*/
@@ -54,22 +54,43 @@ export class Board {
             this.doCastleMove(fromSq, toSq);
         }
         else {
-            this.move(fromInd,toInd)
+            this.move(fromInd, toInd)
         }
     }
-    private move(from:Square, to:Square){
+    private move(from: Square, to: Square) {
+        console.log("moving from " + from + "with piece " + this.squares[from] + " to " + to);
+        //en passant made?
+        if (this.getPieceAt(from) === (Piece.WHITE_PAWN || Piece.BLACK_PAWN)
+            && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
+            /*find square for en passant
+            (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
+            */
+            this.enPassantSq = (to - from) / 2 + from;
+        }
+
+        //move piece
+        console.log("\nmoving piece " + this.squares[from] + " from " + from);
+
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
+
+        console.log("moved piece " + this.squares[to] + " to " + to);
+
+        
+
+        //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
 
+
+
         //pieces taken?
-        //en passant made?
+
         //move counter ++
         //halfmove clock ++ ?
     }
     private doCastleMove(fromSq: string, toSq: string) {
     }
-  
+
     /*One FEN string or record consists of six fields separated by a space character: 
     1. Piece placement
     2. Active color
@@ -109,9 +130,16 @@ export class Board {
         result.squares = squares;
         result.whiteNextMove = sixFields[1] === "w" ? true : false;
         result.castlingRights = sixFields[2];
-        result.enPassantSq = sixFields[3];
+        result.enPassantSq = Square[sixFields[3]];
         result.halfMoveClock = sixFields[4];
         result.fullMoveNumber = sixFields[5];
         return new Board(result);
     }
+}
+/*
+When direction is south, return value will be prefixed with a minus sign.
+(Should this be replaced with some kind of vector implemenation?)
+*/
+function distanceNorthBetween(from: Square, to: Square): number {
+    return to / 8 - from / 8;
 }

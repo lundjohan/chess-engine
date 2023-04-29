@@ -3,6 +3,7 @@ import { Board } from '../board';
 import { Square } from '../enums';
 
 const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+//You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 describe('newGame() - initiation of Board members', function () {
     it('should have pieces at correct places', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
@@ -18,7 +19,7 @@ describe('newGame() - initiation of Board members', function () {
         assert.equal(result.castlingRights, 'KQkq');
     });
     it('should have correct en passant value', function () {
-        assert.equal(result.enPassantSq, 'c6');
+        assert.equal(result.enPassantSq, Square.c6);
     });
     it('should have correct halfmove clock', function () {
         assert.equal(result.halfMoveClock, '0');
@@ -37,5 +38,16 @@ describe('moveFEN() - moving pieces', function () {
     it('should after move change turn from white to black', function () {
         //it should now be black's turn
         assert.equal(b.whiteMoveNext, false);
+    });
+});
+const c = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+describe('moveFEN() - en passant added when moving pawn 2 steps', function () {
+    it('should move a pawn two step forward', function () {
+        c.moveFEN('a2a4');
+        assert.equal(c.getPieceAt(Square.a4), 'P');
+        assert.equal(c.getPieceAt(Square.a2), undefined);
+    });
+    it('should after move have created correct en passant value on board', function () {
+        assert.equal(c.enPassantSq, Square.a3);
     });
 });
