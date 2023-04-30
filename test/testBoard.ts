@@ -86,3 +86,13 @@ describe('moveFEN() - full move number', function () {
     }
     );
 });
+describe('moveFEN() - castling', function () {
+    const f = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+    it('should have castling rights KQkq', function () {
+        assert.equal(f.castlingRights, 'KQkq');
+    });
+    it('should remove whites castling rights after white king move', function () {
+        f.moveFEN('e1e2');
+        assert.equal(f.castlingRights, 'kq');
+    });
+});
