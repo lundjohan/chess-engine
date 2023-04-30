@@ -38,29 +38,28 @@ export class Board {
     Examples:  e2e4, e7e5, e1g1 (white short castling), e7e8q (for promotion)
     */
     public moveFEN(fenStr: string) {
-        let fromSq: string = fenStr.substring(0, 2);
-        let fromInd: number = Square[fromSq];
-        let toSq: string = fenStr.substring(2, 4);
-        let toInd: number = Square[toSq];
+        let from: number = Square[fenStr.substring(0, 2)];
+        let to: number = Square[fenStr.substring(2, 4)];
+
+        this.move(from, to)
 
         //promotion
         if (fenStr.length === 5) {
         }
-        //castling 
-        //refactor to use this.castleRights instead
-        else if (this.squares[fromInd] === (Piece.WHITE_KING || Piece.BLACK_KING)
-            && (fromSq === 'e1' && (toSq === 'g1' || toSq === 'c1'))
-            || (fromSq === 'e8' && (toSq === 'g8' || toSq === 'c8'))) {
-            this.doCastleMove(fromSq, toSq);
-        }
-        else {
-            this.move(fromInd, toInd)
-        }
+        
     }
     private move(from: Square, to: Square) {
+        let movingPiece = this.getPieceAt(from);
+        //castling 
+        //refactor to use this.castleRights instead
+        if (movingPiece === (Piece.WHITE_KING || Piece.BLACK_KING)
+            && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
+            || (from === Square.e8 && (to === Square.g8 || to === Square.c8))) {
+            this.doCastleMove(from, to);
+        }
         //en passant made?
         //det är första raden nedan som är fel. Byter jag på Piece.BLACK_PAWN och Piece.WHITE_PAWN så funkar det. 
-        if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
+        else if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
             && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
             /*find square for en passant
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
@@ -83,7 +82,7 @@ export class Board {
         //move counter ++
         //halfmove clock ++ ?
     }
-    private doCastleMove(fromSq: string, toSq: string) {
+    private doCastleMove(from: Square, to: Square) {
     }
 
     /*One FEN string or record consists of six fields separated by a space character: 
