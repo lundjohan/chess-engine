@@ -52,9 +52,7 @@ export class Board {
         let movingPiece = this.getPieceAt(from);
         //castling 
         //refactor to use this.castleRights instead
-        if (movingPiece === (Piece.WHITE_KING || Piece.BLACK_KING)
-            && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
-            || (from === Square.e8 && (to === Square.g8 || to === Square.c8))) {
+        if (this.isCastling(from, to)) {
             this.doCastleMove(from, to);
         }
         //en passant made?
@@ -83,9 +81,14 @@ export class Board {
         //pieces taken?
         
     }
+    private isCastling(from: Square, to: Square): boolean {
+        return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
+                && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
+                || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
+    }
     private doCastleMove(from: Square, to: Square) {
     }
-
+    
     /*One FEN string or record consists of six fields separated by a space character: 
     1. Piece placement
     2. Active color
