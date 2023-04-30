@@ -75,6 +75,10 @@ export class Board {
         if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
             this.rmAllCastlingRightsFor(this.whiteMoveNext);
         }
+        if (piece === Piece.WHITE_ROOK && (from === Square.a1 || from === Square.h1) ||
+            piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)){
+            this.rmCastlingRightsForSide(from);
+        }
         
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
@@ -85,6 +89,22 @@ export class Board {
         //pieces taken?
         
     }
+    private rmCastlingRightsForSide(from: Square) {
+        switch (from) {
+            case Square.a1:
+                this.castlingRights = this.castlingRights.replace("Q", "");
+                break;
+            case Square.h1:
+                this.castlingRights = this.castlingRights.replace("K", "");
+                break;
+            case Square.a8:
+                this.castlingRights = this.castlingRights.replace("q", "");
+                break;
+            case Square.h8:
+                this.castlingRights = this.castlingRights.replace("k", "");
+                break;
+    }
+}
     private isCastling(from: Square, to: Square): boolean {
         return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
                 && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
@@ -98,6 +118,7 @@ export class Board {
             this.castlingRights = this.castlingRights.replace("k", "").replace("q", "");
         }
     }
+        
     private doCastleMove(from: Square, to: Square) {
     }
     
