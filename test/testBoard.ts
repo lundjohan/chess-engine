@@ -100,5 +100,15 @@ describe('moveFEN() - where board', function () {
         f.moveFEN('e8e7');
         assert.equal(f.castlingRights, '');
     });
-
+});
+describe('moveFEN() - where board', function () {
+    //all rooks are free to move in this board
+    const g = Board.newGame('rnbqkbnr/1p1pppp1/8/2p5/4P3/8/1PPP1PP1/RNBQKBNR w KQkq c6 0 2');
+    it('should have castling rights KQkq', function () {
+        assert.equal(g.castlingRights, 'KQkq');
+    });
+    it('should remove whites castling rights kingside only after that rook has moved', function () {
+        g.moveFEN('h1h2');
+        assert.equal(g.castlingRights, 'Qkq');
+    });
 });
