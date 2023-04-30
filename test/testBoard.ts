@@ -86,7 +86,7 @@ describe('moveFEN() - full move number', function () {
     }
     );
 });
-describe('moveFEN() - castling rights', function () {
+describe('moveFEN() - where board', function () {
     //this board is different from the above, as both kings are free to move
     const f = Board.newGame('rnbqkbnr/pp1p1ppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it('should have castling rights KQkq', function () {
@@ -100,4 +100,5 @@ describe('moveFEN() - castling rights', function () {
         f.moveFEN('e8e7');
         assert.equal(f.castlingRights, '');
     });
+
 });
