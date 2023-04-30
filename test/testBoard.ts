@@ -111,4 +111,17 @@ describe('moveFEN() - where board', function () {
         g.moveFEN('h1h2');
         assert.equal(g.castlingRights, 'Qkq');
     });
+    it('should remove blacks castling rights kingside only after that rook has moved', function (){
+        g.moveFEN('h8h7');
+        assert.equal(g.castlingRights, 'Qq');
+    });
+    it('should remove whites castling rights queenside after that rook has moved', function (){
+        g.moveFEN('a1a2');
+        assert.equal(g.castlingRights, 'q');
+    });
+    it('should remove blacks castling rights queenside after that rook has moved', function (){
+        g.moveFEN('a8a7');
+        assert.equal(g.castlingRights, '');
+    });
+
 });
