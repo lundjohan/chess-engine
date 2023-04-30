@@ -49,7 +49,6 @@ export class Board {
         
     }
     private move(from: Square, to: Square) {
-        let movingPiece = this.getPieceAt(from);
         //castling 
         //refactor to use this.castleRights instead
         if (this.isCastling(from, to)) {
