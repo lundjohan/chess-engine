@@ -49,6 +49,7 @@ export class Board {
         
     }
     private move(from: Square, to: Square) {
+        let piece: string = this.getPieceAt(from);
         //castling 
         //refactor to use this.castleRights instead
         if (this.isCastling(from, to)) {
@@ -70,6 +71,10 @@ export class Board {
         this.squares[from] = undefined;
 
         if (!this.whiteMoveNext){this.fullMoveNumber++;}
+
+        if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
+            this.rmAllCastlingRightsFor(this.whiteMoveNext);
+        }
         
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
@@ -84,6 +89,14 @@ export class Board {
         return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
                 && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
                 || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
+    }
+    private rmAllCastlingRightsFor(white: boolean) {
+        if (white) {
+            this.castlingRights = this.castlingRights.replace("K", "").replace("Q", "");
+        }
+        else {
+            this.castlingRights = this.castlingRights.replace("k", "").replace("q", "");
+        }
     }
     private doCastleMove(from: Square, to: Square) {
     }
