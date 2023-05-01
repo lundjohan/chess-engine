@@ -134,7 +134,7 @@ describe('moveFEN() - where board', function () {
         assert.equal(b.castlingRights, 'KQkq');
     });
     it('should make a complete queen white side castling',function(){
-        b.moveFEN('e1a1');
+        b.moveFEN('e1c1');
         assert.equal(b.getPieceAt(Square.c1), 'K');
         assert.equal(b.getPieceAt(Square.d1), 'R');
         assert.equal(b.getPieceAt(Square.a1), 'undefined');
