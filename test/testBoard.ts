@@ -17,6 +17,13 @@ describe('newGame() - initiation of Board members', function () {
     it('should have white king at e1', function () {
         assert.equal(result.getPieceAt(Square.e1), 'K');
     });
+    //check empty squares and piece after
+    it('should have empty square at a5', function () {
+        assert.equal(result.getPieceAt(Square.a5), undefined);
+    });
+    it('should have empty square at b5', function () {
+        assert.equal(result.getPieceAt(Square.b5), undefined);
+    });
     it('should have black pawn at c5', function () {
         assert.equal(result.getPieceAt(Square.c5), Piece.BLACK_PAWN);
     });
@@ -153,7 +160,7 @@ describe('moveFEN() - where board', function () {
         b.moveFEN('e1c1');
         assert.equal(b.getPieceAt(Square.c1), 'K');
         assert.equal(b.getPieceAt(Square.d1), 'R');
-        assert.equal(b.getPieceAt(Square.a1), 'undefined');
-        assert.equal(b.getPieceAt(Square.e1), 'undefined');
+        assert.equal(b.getPieceAt(Square.a1), undefined);
+        assert.equal(b.getPieceAt(Square.e1), undefined);
     });
 });
