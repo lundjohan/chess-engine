@@ -14,6 +14,12 @@ describe('newGame() - initiation of Board members', function () {
     it('should have white pawn at h2', function () {
         assert.equal(result.getPieceAt(Square.h2), 'P');
     });
+    it('should have white king at e1', function () {
+        assert.equal(result.getPieceAt(Square.e1), 'K');
+    });
+    it('should have black pawn at c5', function () {
+        assert.equal(result.getPieceAt(Square.c5), Piece.BLACK_PAWN);
+    });
     it('should show undefined for empty square a3', function () {
         assert.equal(result.getPieceAt(Square.a3), undefined);
     });
