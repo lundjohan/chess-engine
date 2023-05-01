@@ -180,8 +180,8 @@ export class Board {
                     process.stdout.write(c);
                 }
             }
-            console.log();
         }
+        console.log();
         let result: any = {};
         result.squares = squares;
         result.whiteNextMove = sixFields[1] === "w" ? true : false;
@@ -198,4 +198,31 @@ When direction is south, return value will be prefixed with a minus sign.
 */
 function distanceNorthBetween(from: Square, to: Square): number {
     return (to - from) / 8;
+}
+//prints FEN of state
+export function toFen(board: Board):string {
+    let result:string = "";
+    for (let i = 0; i<board.squares.length; i++) {
+        if (i > 0 && i % 8 === 0) {
+            result += '/';
+        }
+        let piece = board.squares[i];
+        if (piece === undefined) {
+            result += "1";
+        }
+        else {
+            result += piece;
+        }
+    }
+    //revert to a8-h1 (internal board goes from a1-h8)
+    result = result.split("").reverse().join("");
+    
+    //replace 11111111 with 8, or 111 with 3, etc.
+    result = result.replace(/1{1,8}/g, match => match.length.toString());
+    result += board.whiteMoveNext ? " w " : " b ";
+    result += board.castlingRights + " ";
+    result += Square[board.enPassantSq] + " ";
+    result += board.halfMoveClock + " ";
+    result += board.fullMoveNumber;
+    return result;
 }
