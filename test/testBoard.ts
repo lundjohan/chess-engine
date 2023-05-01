@@ -49,6 +49,31 @@ describe('newGame() - initiation of Board members', function () {
     it('should have empty square at f4', function () {
         assert.equal(result.getPieceAt(Square.f4), undefined);
     });
+    //row 2
+    it('should have white pawn at a2', function () {
+        assert.equal(result.getPieceAt(Square.a2), Piece.WHITE_PAWN);
+    });
+    it('should have white pawn at b2', function () {
+        assert.equal(result.getPieceAt(Square.b2), Piece.WHITE_PAWN);
+    });
+    it('should have white pawn at c2', function () {
+        assert.equal(result.getPieceAt(Square.c2), Piece.WHITE_PAWN);
+    });
+    it('should have white pawn at d2', function () {
+        assert.equal(result.getPieceAt(Square.d2), Piece.WHITE_PAWN);
+    });
+    it('should be empty square at e2', function () {
+        assert.equal(result.getPieceAt(Square.e2), undefined);
+    });
+    it('should have white pawn at f2', function () {
+        assert.equal(result.getPieceAt(Square.f2), Piece.WHITE_PAWN);
+    });
+    it('should have white pawn at g2', function () {
+        assert.equal(result.getPieceAt(Square.g2), Piece.WHITE_PAWN);
+    });
+    it('should have white pawn at h2', function () {
+        assert.equal(result.getPieceAt(Square.h2), Piece.WHITE_PAWN);
+    });
 
     it('should show undefined for empty square a3', function () {
         assert.equal(result.getPieceAt(Square.a3), undefined);
