@@ -1,10 +1,17 @@
 import { assert } from 'chai';
-import { Board } from '../board';
+import { Board, toFen } from '../board';
 import { Piece, Square } from '../enums';
 
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
-describe('newGame() - initiation of Board members', function () {
+describe('toFen() - state to FEN notation', function () {
     const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+    it ('should make printBoard output correct FEN for board, castlerights etc', function () {
+        let fenFromBoard = toFen(result);
+        assert.equal(fenFromBoard, 'rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+    });
+});
+describe('newGame() - initiation of Board members', function () {
+    const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');  
     it('should have black bishop at c8', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
     });
