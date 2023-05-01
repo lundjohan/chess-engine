@@ -53,7 +53,16 @@ export class Board {
         //castling 
         //refactor to use this.castleRights instead
         if (this.isCastling(from, to)) {
-            this.doCastleMove(from, to);
+            //move rook
+            //white & queen side?
+            if (this.whiteMoveNext && to === Square.c1) {
+                this.squares[Square.a1] = undefined;
+                this.squares[Square.d1] = Piece.WHITE_ROOK;
+            }
+            else if(!this.whiteMoveNext && to === Square.c8){
+                this.squares[Square.a8] = undefined;
+                this.squares[Square.d8] = Piece.BLACK_ROOK;
+            }
         }
         //en passant made?
         //det är första raden nedan som är fel. Byter jag på Piece.BLACK_PAWN och Piece.WHITE_PAWN så funkar det. 
@@ -126,7 +135,7 @@ export class Board {
         }
     }
         
-    private doCastleMove(from: Square, to: Square) {
+    private moveRook(from: Square, to: Square) {
     }
     
     /*One FEN string or record consists of six fields separated by a space character: 
@@ -147,22 +156,32 @@ export class Board {
         //"N.B. - the FEN string goes from a8 to h1
         for (let i = 0; i < ranks.length; i++) {
             let rank = ranks[i];
-            let j = 0;
-            while (j < rank.length) {
-                let c = rank.charAt(j);
+            
+            //Must have two different columns, 
+            //since empty squares in FEN are represented by numbers,
+            //but in board are represented by empty squares.
+            let FENcol = 0;
+            let realCol = 0;
+            while (FENcol < rank.length) {
+                let c = rank.charAt(FENcol);
 
                 //if a number, skip that many squares
                 if (c >= '1' && c <= '8') {
-                    j += parseInt(c);
+                    FENcol++;
+                    realCol += parseInt(c);
+                    process.stdout.write(c);
                 }
                 //else, add the piece to the board
                 else {
                     //N.B. the squares array goes from a1 to h8
                     let realRow = 7 - i;
-                    squares[realRow * rank.length + j] = c;
-                    j++;
+                    squares[realRow * rank.length + realCol] = c;
+                    FENcol++;
+                    realCol++;
+                    process.stdout.write(c);
                 }
             }
+            console.log();
         }
         let result: any = {};
         result.squares = squares;
