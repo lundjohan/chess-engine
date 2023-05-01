@@ -123,5 +123,21 @@ describe('moveFEN() - where board', function () {
         g.moveFEN('a8a7');
         assert.equal(g.castlingRights, '');
     });
-
+});
+describe('moveFEN() - where board', function () {
+    /*in this board castling can be done on all fronts, 
+    (there are full castling rights, 
+        no check on king or on squares between [rook can be in 'check'], 
+        and no pieces between king and rooks)*/
+    const b = Board.newGame('r3k2r/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/R3K2R w KQkq c6 0 2');
+    it('should have full castling rights KQkq', function () {
+        assert.equal(b.castlingRights, 'KQkq');
+    });
+    it('should make a complete queen white side castling',function(){
+        b.moveFEN('e1a1');
+        assert.equal(b.getPieceAt(Square.c1), 'K');
+        assert.equal(b.getPieceAt(Square.d1), 'R');
+        assert.equal(b.getPieceAt(Square.a1), 'undefined');
+        assert.equal(b.getPieceAt(Square.e1), 'undefined');
+    });
 });
