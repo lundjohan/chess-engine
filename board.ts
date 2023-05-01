@@ -72,7 +72,6 @@ export class Board {
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
             */
             this.enPassantSq = (to - from) / 2 + from;
-            console.log("\nthis.enPassantSq" + this.enPassantSq);
         }
 
         //move piece
