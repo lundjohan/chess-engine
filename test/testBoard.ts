@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { Board } from '../board';
-import { Square } from '../enums';
+import { Piece, Square } from '../enums';
 
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 describe('newGame() - initiation of Board members', function () {
@@ -133,6 +133,16 @@ describe('moveFEN() - where board', function () {
     it('should have full castling rights KQkq', function () {
         assert.equal(b.castlingRights, 'KQkq');
     });
+    //check that there are no pieces between king and rook queenside
+    it('should have no pieces queenside white between king & rook', function(){
+        assert.equal(b.getPieceAt(Square.b1), undefined);
+        assert.equal(b.getPieceAt(Square.c1), undefined);
+        assert.equal(b.getPieceAt(Square.d1), undefined);
+    });
+    it('should - queenside white - have rook & king at right starting places', function(){
+        assert.equal(b.getPieceAt(Square.a1), Piece.WHITE_ROOK);
+        assert.equal(b.getPieceAt(Square.e1), Piece.WHITE_KING);
+    });  
     it('should make a complete queen white side castling',function(){
         b.moveFEN('e1c1');
         assert.equal(b.getPieceAt(Square.c1), 'K');
