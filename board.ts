@@ -110,6 +110,13 @@ export class Board {
                 && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
                 || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
     }
+    /*
+    Castling is permitted provided all of the following conditions are met:
+    Neither the king nor the rook has previously moved.
+    There are no pieces between the king and the rook.
+    The king is not currently in check.
+    The king does not pass through or finish on a square that is attacked by an enemy piece.
+    */
     private rmAllCastlingRightsFor(white: boolean) {
         if (white) {
             this.castlingRights = this.castlingRights.replace("K", "").replace("Q", "");
