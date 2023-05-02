@@ -22,7 +22,7 @@ Installation for Mocha:
   ..Typescript
   npm install --save-dev typescript
 
-Well I want to create my engine incrementally, so it CAN make sense writing a client (other than just complete the engine and hook it up against XBoard).
+I want to create my engine incrementally, so it CAN make sense writing a client (other than just complete the engine and hook it up against XBoard).
 
 The server & client should incrementally implement the Universal Chess Interface (UCI) protocol.
 http://page.mi.fu-berlin.de/block/uci.htm
