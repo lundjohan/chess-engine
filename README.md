@@ -22,8 +22,7 @@ Installation for Mocha:
   ..Typescript
   npm install --save-dev typescript
 
-This will end up being a client. Why writing a client when there exists Xboard etc?
-Well I want to create my engine incrementally, so it makes sense.
+Well I want to create my engine incrementally, so it CAN make sense writing a client (other than just complete the engine and hook it up against XBoard).
 
 The server & client should incrementally implement the Universal Chess Interface (UCI) protocol.
 http://page.mi.fu-berlin.de/block/uci.htm
