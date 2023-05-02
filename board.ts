@@ -189,15 +189,19 @@ export function toFen(board: Board): string {
 
     for (let i = 0; i < board.squares.length; i++) {
         if (i > 0 && i % 8 === 0) {
-            //add '/'
+            //'/' is separator between ranks
             result += "/";
         }
         let piece = board.squares[i];
+
+        //creating 1:s for empty squares, will later be replaced below
         result += piece === undefined ? "1" : piece;
     }
 
     // Replace consecutive '1's with their count
     result = result.replace(/1{1,8}/g, match => match.length.toString());
+    
+    //ranks should be reversed, from a1 - h8 to h8 - a1
     result = result.split('/').reverse().join('/');
 
     result += board.whiteMoveNext ? " w " : " b ";
