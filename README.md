@@ -1,6 +1,10 @@
-To run, write in prompt (nodejs must be installed):
+Chess Engine
+
+To run the html page, write in prompt (nodejs must be installed):
 node server.js 
 => In browser, go to localhost:3000
+
+However, most of the developing is going on in the test file(s). And the html-page will perhaps never be used, as this might turn out to be only the engine (only the server and not the client). On the other hand, it might be split into its own client project. We'll see.
 
 Notice that I added in tsconfig.json file 
 "test": "tsc && mocha --reporter list dist/test" => this make sure I don't have to write 'tsc' in terminal everytime I run 'npm test'. I also added 'dist/test' so it's enough to write 'npm [run] test'.
@@ -21,6 +25,6 @@ Installation for Mocha:
 This will end up being a client. Why writing a client when there exists Xboard etc?
 Well I want to create my engine incrementally, so it makes sense.
 
-The client should incrementally implement the Universal Chess Interface (UCI) protocol.
+The server & client should incrementally implement the Universal Chess Interface (UCI) protocol.
 http://page.mi.fu-berlin.de/block/uci.htm
 
