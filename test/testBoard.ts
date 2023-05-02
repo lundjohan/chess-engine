@@ -3,6 +3,7 @@ import { Board, toFen } from '../board';
 import { Piece, Square } from '../enums';
 
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
+describe('Chess Board', function () {
 describe('toFen() - state to FEN notation', function () {
     const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
     it ('should make printBoard output correct FEN for board, castlerights etc', function () {
@@ -12,6 +13,7 @@ describe('toFen() - state to FEN notation', function () {
 });
 describe('newGame() - initiation of Board members', function () {
     const result = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');  
+    describe('Piece positions', function () {
     it('should have black bishop at c8', function () {
         assert.equal(result.getPieceAt(Square.c8), 'b');
     });
@@ -101,12 +103,17 @@ describe('newGame() - initiation of Board members', function () {
         assert.equal(result.fullMoveNumber, 2);
     });
 });
+});
 describe('moveFEN() - moving pieces', function () {
     const b = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
-    it('should move a pawn one step forward', function () {
+    describe('when moving a pawn one step forward', function () {
         b.moveFEN('a2a3');
+        it('should be a pawn in to-square', function () {
         assert.equal(b.getPieceAt(Square.a3), 'P');
+        });
+        it('should be empty in from-square', function () {
         assert.equal(b.getPieceAt(Square.a2), undefined);
+        });
     });
     it('should after move change turn from white to black', function () {
         //it should now be black's turn
@@ -218,4 +225,5 @@ describe('moveFEN() - where board', function () {
         assert.equal(b.getPieceAt(Square.a1), undefined);
         assert.equal(b.getPieceAt(Square.e1), undefined);
     });
+});
 });
