@@ -147,53 +147,34 @@ export class Board {
     */
 
     public static newGame(FENstr: string) {
-        //prepare FEN string, replace numbers that describe empty squares with 1s
-
-
-        let sixFields: string[] = FENstr.split(" ");
-
-        //this part of FEN needs preparing:
-        //1. Extract board (Pieces loc & empty loc). 2. Divide into 8 ranks. 3. a8 - h1 => a1 - h8
-        let ranks:string[] = sixFields[0].split('/').reverse();
-
-        //...pp3ppp... => ...pp111ppp...
-        let cleanedRanks:string[][] = new Array();
-        for (let i = 0;i<ranks.length;i++){
-            let rankArr = ranks[i].split("");
-            
-            for (let j = 0; j<rankArr.length;j++)
-            {
-                let c = rankArr[j];
-                let nrOfOnes:string = '';
-                if (c.match(/[1-8]/)){
-                    for (let k = 0; k<parseInt(c);k++){
-                        nrOfOnes += '1';
-                    }
-                }
-                rankArr.splice(i,1,nrOfOnes);
-            }
-            //join().split to make 'p','111','p' -> 'p','1','1','1','p'
-            cleanedRanks.push(rankArr.join("").split(""));
-        }
-        
-        //insert "cleaned up" array into squares array
-        let squares: string[] = new Array(64);
-        for (let row = 0; row < cleanedRanks.length; row++) {
-            let rank = cleanedRanks[row];
-            for (let col = 0;col<rank.length;col++){
-                if (rank[col] === '1') {continue;}
-                squares[row * rank.length + col] = rank[col];
-            }
-        }
-        let result: any = {};
-        result.squares = squares;
-        result.whiteNextMove = sixFields[1] === "w" ? true : false;
-        result.castlingRights = sixFields[2];
-        result.enPassantSq = Square[sixFields[3]];
-        result.halfMoveClock = sixFields[4];
-        result.fullMoveNumber = parseInt(sixFields[5]);
+        const sixFields: string[] = FENstr.split(" ");
+    
+        // Replace numbers with corresponding number of '1's and then split by '/'
+        const ranks = sixFields[0].replace(/\d/g, match => '1'.repeat(Number(match))).split('/');
+    
+        // Reverse the ranks array to match the internal board representation
+        const reversedRanks = ranks.reverse();
+    
+        // Create the squares array
+        const squares: string[] = new Array(64);
+        reversedRanks.forEach((rank, rowIndex) => {
+            [...rank].forEach((char, colIndex) => {
+                const squareIndex = rowIndex * 8 + colIndex;
+                squares[squareIndex] = char === '1' ? undefined : char;
+            });
+        });
+    
+        const result: any = {
+            squares: squares,
+            whiteNextMove: sixFields[1] === "w",
+            castlingRights: sixFields[2],
+            enPassantSq: Square[sixFields[3]],
+            halfMoveClock: Number(sixFields[4]),
+            fullMoveNumber: Number(sixFields[5])
+        };
+    
         return new Board(result);
-    }
+    }    
 }
 /*
 When direction is south, return value will be prefixed with a minus sign.
