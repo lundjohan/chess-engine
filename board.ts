@@ -145,43 +145,46 @@ export class Board {
     5. Halfmove clock
     6. Fullmove number
     */
+
     public static newGame(FENstr: string) {
+        //prepare FEN string, replace numbers that describe empty squares with 1s
+
+
         let sixFields: string[] = FENstr.split(" ");
-        let squares: string[] = new Array(64);
 
-        //pieces
-        let ranks: string[] = sixFields[0].split("/");
+        //this part of FEN needs preparing:
+        //1. Extract board (Pieces loc & empty loc). 2. Divide into 8 ranks. 3. a8 - h1 => a1 - h8
+        let ranks:string[] = sixFields[0].split('/').reverse();
 
-        //"N.B. - the FEN string goes from a8 to h1
-        for (let i = 0; i < ranks.length; i++) {
-            let rank = ranks[i];
+        //...pp3ppp... => ...pp111ppp...
+        let cleanedRanks:string[][] = new Array();
+        for (let i = 0;i<ranks.length;i++){
+            let rankArr = ranks[i].split("");
             
-            //Must have two different columns, 
-            //since empty squares in FEN are represented by numbers,
-            //but in board are represented by empty squares.
-            let FENcol = 0;
-            let realCol = 0;
-            while (FENcol < rank.length) {
-                let c = rank.charAt(FENcol);
-
-                //if a number, skip that many squares
-                if (c >= '1' && c <= '8') {
-                    FENcol++;
-                    realCol += parseInt(c);
-                    process.stdout.write(c);
+            for (let j = 0; j<rankArr.length;j++)
+            {
+                let c = rankArr[j];
+                let nrOfOnes:string = '';
+                if (c.match(/[1-8]/)){
+                    for (let k = 0; k<parseInt(c);k++){
+                        nrOfOnes += '1';
+                    }
                 }
-                //else, add the piece to the board
-                else {
-                    //N.B. the squares array goes from a1 to h8
-                    let realRow = 7 - i;
-                    squares[realRow * rank.length + realCol] = c;
-                    FENcol++;
-                    realCol++;
-                    process.stdout.write(c);
-                }
+                rankArr.splice(i,1,nrOfOnes);
+            }
+            //join().split to make 'p','111','p' -> 'p','1','1','1','p'
+            cleanedRanks.push(rankArr.join("").split(""));
+        }
+        
+        //insert "cleaned up" array into squares array
+        let squares: string[] = new Array(64);
+        for (let row = 0; row < cleanedRanks.length; row++) {
+            let rank = cleanedRanks[row];
+            for (let col = 0;col<rank.length;col++){
+                if (rank[col] === '1') {continue;}
+                squares[row * rank.length + col] = rank[col];
             }
         }
-        console.log();
         let result: any = {};
         result.squares = squares;
         result.whiteNextMove = sixFields[1] === "w" ? true : false;
