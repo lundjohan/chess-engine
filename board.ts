@@ -46,7 +46,7 @@ export class Board {
         //promotion
         if (fenStr.length === 5) {
         }
-        
+
     }
     private move(from: Square, to: Square) {
         let piece: string = this.getPieceAt(from);
@@ -59,7 +59,7 @@ export class Board {
                 this.squares[Square.a1] = undefined;
                 this.squares[Square.d1] = Piece.WHITE_ROOK;
             }
-            else if(!this.whiteMoveNext && to === Square.c8){
+            else if (!this.whiteMoveNext && to === Square.c8) {
                 this.squares[Square.a8] = undefined;
                 this.squares[Square.d8] = Piece.BLACK_ROOK;
             }
@@ -78,24 +78,24 @@ export class Board {
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
 
-        if (!this.whiteMoveNext){this.fullMoveNumber++;}
+        if (!this.whiteMoveNext) { this.fullMoveNumber++; }
 
         if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
             this.rmAllCastlingRightsFor(this.whiteMoveNext);
         }
         if (piece === Piece.WHITE_ROOK && (from === Square.a1 || from === Square.h1) ||
-            piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)){
+            piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)) {
             this.rmCastlingRightsForSide(from);
         }
-        
+
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
 
-        
+
         //halfmove clock ++ ?
 
         //pieces taken?
-        
+
     }
     private rmCastlingRightsForSide(from: Square) {
         switch (from) {
@@ -111,12 +111,12 @@ export class Board {
             case Square.h8:
                 this.castlingRights = this.castlingRights.replace("k", "");
                 break;
+        }
     }
-}
     private isCastling(from: Square, to: Square): boolean {
         return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
-                && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
-                || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
+            && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
+            || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
     }
     /*
     Castling is permitted provided all of the following conditions are met:
@@ -133,10 +133,10 @@ export class Board {
             this.castlingRights = this.castlingRights.replace("k", "").replace("q", "");
         }
     }
-        
+
     private moveRook(from: Square, to: Square) {
     }
-    
+
     /*One FEN string or record consists of six fields separated by a space character: 
     1. Piece placement
     2. Active color
@@ -148,13 +148,13 @@ export class Board {
 
     public static newGame(FENstr: string) {
         const sixFields: string[] = FENstr.split(" ");
-    
+
         // Replace numbers with corresponding number of '1's and then split by '/'
         const ranks = sixFields[0].replace(/\d/g, match => '1'.repeat(Number(match))).split('/');
-    
+
         // Reverse the ranks array to match the internal board representation
         const reversedRanks = ranks.reverse();
-    
+
         // Create the squares array
         const squares: string[] = new Array(64);
         reversedRanks.forEach((rank, rowIndex) => {
@@ -163,8 +163,8 @@ export class Board {
                 squares[squareIndex] = char === '1' ? undefined : char;
             });
         });
-    
-        const result: any = {
+
+        const result = {
             squares: squares,
             whiteNextMove: sixFields[1] === "w",
             castlingRights: sixFields[2],
@@ -172,9 +172,9 @@ export class Board {
             halfMoveClock: Number(sixFields[4]),
             fullMoveNumber: Number(sixFields[5])
         };
-    
+
         return new Board(result);
-    }    
+    }
 }
 /*
 When direction is south, return value will be prefixed with a minus sign.
@@ -200,7 +200,7 @@ export function toFen(board: Board): string {
 
     // Replace consecutive '1's with their count
     result = result.replace(/1{1,8}/g, match => match.length.toString());
-    
+
     //ranks should be reversed, from a1 - h8 to h8 - a1
     result = result.split('/').reverse().join('/');
 
