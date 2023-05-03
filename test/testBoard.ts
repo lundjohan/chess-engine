@@ -199,7 +199,7 @@ describe('Chess Board', function () {
             assert.equal(g.castlingRights, '');
         });
     });
-    describe('moveFEN() - where board', function () {
+    describe('moveFEN() - castling queenside', function () {
         /*in this board castling can be done on all fronts, 
         (there are full castling rights, 
             no check on king or on squares between [rook can be in 'check'], 
@@ -224,6 +224,65 @@ describe('Chess Board', function () {
             assert.equal(b.getPieceAt(Square.d1), 'R');
             assert.equal(b.getPieceAt(Square.a1), undefined);
             assert.equal(b.getPieceAt(Square.e1), undefined);
+        });
+        it ('castling rights for white should have been removed', function () {
+            assert.equal(b.castlingRights, 'kq');
+        });
+        it('should for black have rook & king at right starting places for queenside castling', function () {
+            assert.equal(b.getPieceAt(Square.a8), Piece.BLACK_ROOK);
+            assert.equal(b.getPieceAt(Square.e8), Piece.BLACK_KING);
+        });
+        it('should make a complete queen black side castling', function () {
+            b.moveFEN('e8c8');
+            assert.equal(b.getPieceAt(Square.c8), 'k');
+            assert.equal(b.getPieceAt(Square.d8), 'r');
+            assert.equal(b.getPieceAt(Square.a8), undefined);
+            assert.equal(b.getPieceAt(Square.e8), undefined);
+        });
+        it ('castling rights for black should have been removed', function () {
+            assert.equal(b.castlingRights, '');
+        });
+    });
+    describe('moveFEN() - castling kingside', function () {
+        /*in this board castling can be done on all fronts, 
+        (there are full castling rights, 
+            no check on king or on squares between [rook can be in 'check'], 
+            and no pieces between king and rooks)*/
+        const b = Board.newGame('r3k2r/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/R3K2R w KQkq c6 0 2');
+        it('should have full castling rights KQkq', function () {
+            assert.equal(b.castlingRights, 'KQkq');
+        });
+        it('should have no pieces kingside white between king & rook', function () {
+            assert.equal(b.getPieceAt(Square.f1), undefined);
+            assert.equal(b.getPieceAt(Square.g1), undefined);
+        });
+        it('should have rook & king at right starting places', function () {
+            assert.equal(b.getPieceAt(Square.h1), Piece.WHITE_ROOK);
+            assert.equal(b.getPieceAt(Square.e1), Piece.WHITE_KING);
+        });
+        it('should make a complete white castling', function () {
+            b.moveFEN('e1g1');
+            assert.equal(b.getPieceAt(Square.g1), 'K');
+            assert.equal(b.getPieceAt(Square.f1), 'R');
+            assert.equal(b.getPieceAt(Square.h1), undefined);
+            assert.equal(b.getPieceAt(Square.e1), undefined);
+        });
+        it ('castling rights for white should have been removed', function () {
+            assert.equal(b.castlingRights, 'kq');
+        });
+        it('should for black have rook & king at right starting places for kingside castling', function () {
+            assert.equal(b.getPieceAt(Square.h8), Piece.BLACK_ROOK);
+            assert.equal(b.getPieceAt(Square.e8), Piece.BLACK_KING);
+        });
+        it('should make a complete black side castling', function () {
+            b.moveFEN('e8g8');
+            assert.equal(b.getPieceAt(Square.g8), 'k');
+            assert.equal(b.getPieceAt(Square.f8), 'r');
+            assert.equal(b.getPieceAt(Square.h8), undefined);
+            assert.equal(b.getPieceAt(Square.e8), undefined);
+        });
+        it ('castling rights for black should have been removed', function () {
+            assert.equal(b.castlingRights, '');
         });
     });
 });
