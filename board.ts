@@ -59,9 +59,17 @@ export class Board {
                 this.squares[Square.a1] = undefined;
                 this.squares[Square.d1] = Piece.WHITE_ROOK;
             }
+            else if(this.whiteMoveNext && to === Square.g1) {
+                this.squares[Square.h1] = undefined;
+                this.squares[Square.f1] = Piece.WHITE_ROOK;
+            }
             else if (!this.whiteMoveNext && to === Square.c8) {
                 this.squares[Square.a8] = undefined;
                 this.squares[Square.d8] = Piece.BLACK_ROOK;
+            }
+            else if (!this.whiteMoveNext && to === Square.g8) {
+                this.squares[Square.h8] = undefined;
+                this.squares[Square.f8] = Piece.BLACK_ROOK;
             }
         }
         //en passant made?
