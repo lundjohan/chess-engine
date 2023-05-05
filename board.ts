@@ -73,7 +73,6 @@ export class Board {
             }
         }
         //en passant made?
-        //det är första raden nedan som är fel. Byter jag på Piece.BLACK_PAWN och Piece.WHITE_PAWN så funkar det. 
         else if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
             && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
             /*find square for en passant
