@@ -288,12 +288,20 @@ describe('Chess Board', function () {
     describe('moveFEN() - a request for doing castling during chess', function () {
         /*in this board white king is threatend by black queen & castling should not be possible)*/
         const b = Board.newGame('r3k2r/pp1ppppp/8/2p5/4P3/PPPPqPPP/8/R3K2R w KQkq c6 0 2');
-        it('should be ignored', function () {
-            b.moveFEN('e1g1');
-            assert.equal(b.getPieceAt(Square.e1),Piece.WHITE_KING);
-            assert.equal(b.getPieceAt(Square.h1),Piece.WHITE_ROOK);
-            assert.equal(b.getPieceAt(Square.g1),undefined);
-            assert.equal(b.halfMoveClock, '0');
+        b.moveFEN('e1g1');
+        describe('should be ignored', function () {
+            it('and the king should remain in its place', function () {  
+                assert.equal(b.getPieceAt(Square.e1),Piece.WHITE_KING);
+            });
+            it('and the rook should remain in its place', function () {   
+                assert.equal(b.getPieceAt(Square.h1),Piece.WHITE_ROOK);
+            });
+            it('and the to-square for the king should remain empty', function () {
+                assert.equal(b.getPieceAt(Square.g1),undefined);
+            });
+            it('and the halfmoveClock should have the same nr as before move', function () {
+                assert.equal(b.halfMoveClock, '0');
+            });
         });
     });
 });
