@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import { Board, toFen } from '../board';
-import { Piece, Square } from '../enums';
+import { Piece, Square, Direction } from '../enums';
 
 //You can see above notation here: https://www.chessprogramming.org/Forsyth-Edwards_Notation
 describe('Chess Board', function () {
@@ -302,6 +302,15 @@ describe('Chess Board', function () {
             it('and the halfmoveClock should have the same nr as before move', function () {
                 assert.equal(b.halfMoveClock, '0');
             });
+        });
+    });
+    describe('closestPiece()', function () {
+        //white king should be checked by black queen, the white king has no other pieces (neither white or black) 
+        //in any direction
+        const b = Board.newGame('8/qk6/8/8/8/8/k7/8 w KQkq c6 0 2');
+        let piece = b.closestPiece(Square.d1, Direction.NORTH);
+        it('should return the square of the black queen in north', function () {
+            assert.equal(piece, Piece.BLACK_QUEEN);
         });
     });
 });
