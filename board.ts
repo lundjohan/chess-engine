@@ -124,7 +124,7 @@ export class Board {
         //8 possible positions for a knight to check square 
         let knightThreats: Square[] = [sq - 17, sq - 15, sq - 10, sq - 6, sq + 6, sq + 10, sq + 15, sq + 17];
         knightThreats = knightThreats.filter(sq => sq >= Square.a1 && sq <= Square.h8 && this.getPieceAt(sq) !== undefined 
-        && this.isKnight(Piece[this.getPieceAt(sq)]) && isPieceWhite(this.getPieceAt(sq)) !== whiteInDefence);
+        && this.isKnight(this.getPieceAt(sq)) && isPieceWhite(this.getPieceAt(sq)) !== whiteInDefence);
         if (knightThreats.length > 0) {
             return true;
         }
