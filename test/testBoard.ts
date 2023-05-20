@@ -308,9 +308,14 @@ describe('Chess Board', function () {
         //white king should be checked by black queen, the white king has no other pieces (neither white or black) 
         //in any direction
         const b = Board.newGame('8/qk6/8/8/8/8/K7/8 w KQkq c6 0 2');
-        let piece = b.closestPiece(Square.d1, Direction.NORTH);
+        let piece = b.closestPiece(Square.a2, Direction.NORTH);
         it('should return the square of the black queen in north', function () {
             assert.equal(piece, Piece.BLACK_QUEEN);
+        });
+        const c = Board.newGame('8/8/8/8/k7/q7/K7/8 w KQkq c6 0 2');
+        let piece2 = c.closestPiece(Square.a2, Direction.NORTH);
+        it('should return the square of the black queen in north (it is just one piece north)', function () {
+            assert.equal(piece2, Piece.BLACK_QUEEN);
         });
     });
 
