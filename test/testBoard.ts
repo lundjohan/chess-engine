@@ -318,5 +318,4 @@ describe('Chess Board', function () {
             assert.equal(piece2, Piece.BLACK_QUEEN);
         });
     });
-
 });
