@@ -12,5 +12,11 @@ export enum Piece{
     WHITE_KING = 'K', WHITE_QUEEN = 'Q', WHITE_ROOK = 'R', 
     WHITE_BISHOP = 'B', WHITE_KNIGHT = 'N', WHITE_PAWN = 'P',
     BLACK_KING = 'k', BLACK_QUEEN = 'q', BLACK_ROOK = 'r',
-    BLACK_BISHOP = 'b', BLACK_KNIGHT = 'n', BLACK_PAWN = 'p'
+    BLACK_BISHOP = 'b', BLACK_KNIGHT = 'n', BLACK_PAWN = 'p',
+    NO_PIECE = undefined
+}
+
+export enum Direction{
+    NORTH = 8, NORTH_EAST = 9, EAST = 1, SOUTH_EAST = -7,
+    SOUTH = -8, SOUTH_WEST = -9, WEST = -1, NORTH_WEST = 7
 }
