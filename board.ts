@@ -148,7 +148,7 @@ export class Board {
         
         return false;
     }
-    isKnight(piece: Piece):boolean {
+    isKnight(piece: string):boolean {
         return piece === Piece.WHITE_KNIGHT || piece === Piece.BLACK_KNIGHT;
     }
     isRook(piece: string) {
