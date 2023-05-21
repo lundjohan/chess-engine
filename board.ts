@@ -63,21 +63,12 @@ export class Board {
             */
             this.enPassantSq = (to - from) / 2 + from;
         }
-
-        //remove castling rights
-        let piece: string = this.getPieceAt(from);
-        if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
-            this.rmAllCastlingRightsFor(this.whiteMoveNext);
-        }
-        if (piece === Piece.WHITE_ROOK && (from === Square.a1 || from === Square.h1) ||
-            piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)) {
-            this.rmCastlingRightsForSide(from);
-        }
+        this.rmCastlingRightsIfAppropriate(from);
 
         //move piece
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
-        
+
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
 
@@ -117,6 +108,16 @@ export class Board {
         else if (!this.whiteMoveNext && to === Square.g8) {
             this.squares[Square.h8] = undefined;
             this.squares[Square.f8] = Piece.BLACK_ROOK;
+        }
+    }
+    private rmCastlingRightsIfAppropriate(from: Square) {
+        let piece: string = this.getPieceAt(from);
+        if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
+            this.rmAllCastlingRightsFor(this.whiteMoveNext);
+        }
+        if (piece === Piece.WHITE_ROOK && (from === Square.a1 || from === Square.h1) ||
+            piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)) {
+            this.rmCastlingRightsForSide(from);
         }
     }
     private isEnPassant(from: Square, to: Square): boolean {
