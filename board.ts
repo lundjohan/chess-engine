@@ -80,6 +80,11 @@ export class Board {
         //pieces taken?
 
     }
+    private isCastling(from: Square, to: Square): boolean {
+        return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
+            && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
+            || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
+    }
     /* The king is not allowed to castle if he is in check,
         or if he has to pass through check,
         or if his destination is in check */
@@ -118,6 +123,37 @@ export class Board {
         if (piece === Piece.WHITE_ROOK && (from === Square.a1 || from === Square.h1) ||
             piece === Piece.BLACK_ROOK && (from === Square.a8 || from === Square.h8)) {
             this.rmCastlingRightsForSide(from);
+        }
+    }
+    private rmCastlingRightsForSide(from: Square) {
+        switch (from) {
+            case Square.a1:
+                this.castlingRights = this.castlingRights.replace("Q", "");
+                break;
+            case Square.h1:
+                this.castlingRights = this.castlingRights.replace("K", "");
+                break;
+            case Square.a8:
+                this.castlingRights = this.castlingRights.replace("q", "");
+                break;
+            case Square.h8:
+                this.castlingRights = this.castlingRights.replace("k", "");
+                break;
+        }
+    }
+    /*
+    Castling is permitted provided all of the following conditions are met:
+    Neither the king nor the rook has previously moved.
+    There are no pieces between the king and the rook.
+    The king is not currently in check.
+    The king does not pass through or finish on a square that is attacked by an enemy piece.
+    */
+    private rmAllCastlingRightsFor(white: boolean) {
+        if (white) {
+            this.castlingRights = this.castlingRights.replace("K", "").replace("Q", "");
+        }
+        else {
+            this.castlingRights = this.castlingRights.replace("k", "").replace("q", "");
         }
     }
     private isEnPassant(from: Square, to: Square): boolean {
@@ -175,44 +211,6 @@ export class Board {
         else if (this.squares[toSquare] !== undefined) { return this.squares[toSquare]; }
         else { return this.closestPiece(toSquare, direction); }
     }
-
-    private rmCastlingRightsForSide(from: Square) {
-        switch (from) {
-            case Square.a1:
-                this.castlingRights = this.castlingRights.replace("Q", "");
-                break;
-            case Square.h1:
-                this.castlingRights = this.castlingRights.replace("K", "");
-                break;
-            case Square.a8:
-                this.castlingRights = this.castlingRights.replace("q", "");
-                break;
-            case Square.h8:
-                this.castlingRights = this.castlingRights.replace("k", "");
-                break;
-        }
-    }
-    private isCastling(from: Square, to: Square): boolean {
-        return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
-            && (from === Square.e1 && (to === Square.g1 || to === Square.c1))
-            || (from === Square.e8 && (to === Square.g8 || to === Square.c8));
-    }
-    /*
-    Castling is permitted provided all of the following conditions are met:
-    Neither the king nor the rook has previously moved.
-    There are no pieces between the king and the rook.
-    The king is not currently in check.
-    The king does not pass through or finish on a square that is attacked by an enemy piece.
-    */
-    private rmAllCastlingRightsFor(white: boolean) {
-        if (white) {
-            this.castlingRights = this.castlingRights.replace("K", "").replace("Q", "");
-        }
-        else {
-            this.castlingRights = this.castlingRights.replace("k", "").replace("q", "");
-        }
-    }
-
     private moveRook(from: Square, to: Square) {
     }
 
