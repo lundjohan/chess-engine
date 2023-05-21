@@ -64,11 +64,8 @@ export class Board {
             this.enPassantSq = (to - from) / 2 + from;
         }
 
+        //remove castling rights
         let piece: string = this.getPieceAt(from);
-        //move piece
-        this.squares[to] = this.squares[from];
-        this.squares[from] = undefined;
-
         if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
             this.rmAllCastlingRightsFor(this.whiteMoveNext);
         }
@@ -77,6 +74,10 @@ export class Board {
             this.rmCastlingRightsForSide(from);
         }
 
+        //move piece
+        this.squares[to] = this.squares[from];
+        this.squares[from] = undefined;
+        
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
 
