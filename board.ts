@@ -50,8 +50,6 @@ export class Board {
     }
     private move(from: Square, to: Square) {
         //castling 
-        //castlingIsChecked perhaps should be used somewhere else, 
-        //like for example kings possible moves when nodes are created
         if (this.isCastling(from, to)) {
             if (this.isKingCheckedDuringCastling(from, to)) {
                 //illegal move => return  
@@ -83,7 +81,6 @@ export class Board {
 
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
-
 
         //halfmove clock ++ ?
 
