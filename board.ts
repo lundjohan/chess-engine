@@ -52,7 +52,7 @@ export class Board {
         //castling 
         //castlingIsChecked perhaps should be used somewhere else, 
         //like for example kings possible moves when nodes are created
-        if (this.isCastling(from, to)){ 
+        if (this.isCastling(from, to)) {
             if (this.isKingCheckedDuringCastling(from, to)) {
                 //illegal move => return  
                 return;
@@ -67,7 +67,7 @@ export class Board {
             */
             this.enPassantSq = (to - from) / 2 + from;
         }
-        
+
         let piece: string = this.getPieceAt(from);
         //move piece
         this.squares[to] = this.squares[from];
@@ -92,42 +92,42 @@ export class Board {
         //pieces taken?
 
     }
-/* The king is not allowed to castle if he is in check,
-    or if he has to pass through check,
-    or if his destination is in check */
+    /* The king is not allowed to castle if he is in check,
+        or if he has to pass through check,
+        or if his destination is in check */
     private isKingCheckedDuringCastling(kingFrom: Square, kingTo: Square): boolean {
         const middleSquare = kingFrom + (kingTo - kingFrom) / 2;
         const kingSquares: Square[] = [kingFrom, middleSquare, kingTo];
-    
+
         // Use the some() method to check if any square is in check
         return kingSquares.some(sq => this.isSquareChecked(sq, this.whiteMoveNext));
     }
     private doCastling(to: Square) {
-         //move rook
-            //white & queen side?
-            if (this.whiteMoveNext && to === Square.c1) {
-                this.squares[Square.a1] = undefined;
-                this.squares[Square.d1] = Piece.WHITE_ROOK;
-            }
-            else if(this.whiteMoveNext && to === Square.g1) {
-                this.squares[Square.h1] = undefined;
-                this.squares[Square.f1] = Piece.WHITE_ROOK;
-            }
-            else if (!this.whiteMoveNext && to === Square.c8) {
-                this.squares[Square.a8] = undefined;
-                this.squares[Square.d8] = Piece.BLACK_ROOK;
-            }
-            else if (!this.whiteMoveNext && to === Square.g8) {
-                this.squares[Square.h8] = undefined;
-                this.squares[Square.f8] = Piece.BLACK_ROOK;
-            }
+        //move rook
+        //white & queen side?
+        if (this.whiteMoveNext && to === Square.c1) {
+            this.squares[Square.a1] = undefined;
+            this.squares[Square.d1] = Piece.WHITE_ROOK;
+        }
+        else if (this.whiteMoveNext && to === Square.g1) {
+            this.squares[Square.h1] = undefined;
+            this.squares[Square.f1] = Piece.WHITE_ROOK;
+        }
+        else if (!this.whiteMoveNext && to === Square.c8) {
+            this.squares[Square.a8] = undefined;
+            this.squares[Square.d8] = Piece.BLACK_ROOK;
+        }
+        else if (!this.whiteMoveNext && to === Square.g8) {
+            this.squares[Square.h8] = undefined;
+            this.squares[Square.f8] = Piece.BLACK_ROOK;
+        }
     }
     private isSquareChecked(sq: Square, whiteInDefence: boolean): boolean {
         //first check if there are enemy knights threatening the square
         //8 possible positions for a knight to check square 
         let knightThreats: Square[] = [sq - 17, sq - 15, sq - 10, sq - 6, sq + 6, sq + 10, sq + 15, sq + 17];
-        knightThreats = knightThreats.filter(sq => sq >= Square.a1 && sq <= Square.h8 && this.getPieceAt(sq) !== undefined 
-        && this.isKnight(this.getPieceAt(sq)) && isPieceWhite(this.getPieceAt(sq)) !== whiteInDefence);
+        knightThreats = knightThreats.filter(sq => sq >= Square.a1 && sq <= Square.h8 && this.getPieceAt(sq) !== undefined
+            && this.isKnight(this.getPieceAt(sq)) && isPieceWhite(this.getPieceAt(sq)) !== whiteInDefence);
         if (knightThreats.length > 0) {
             return true;
         }
@@ -142,36 +142,36 @@ export class Board {
         //make array of pieces
         let pieces: string[] = [pieceToNorth, pieceToSouth, pieceToEast, pieceToWest];
         //filter out undefined & pieces of same color & not rook or queen
-        pieces = pieces.filter(piece => piece !== undefined && isPieceWhite(piece.toString()) !== whiteInDefence 
-        && (this.isRook(piece) || this.isQueen(piece)));
+        pieces = pieces.filter(piece => piece !== undefined && isPieceWhite(piece.toString()) !== whiteInDefence
+            && (this.isRook(piece) || this.isQueen(piece)));
         if (pieces.length > 0) {
             return true;
         }
         //check for threats from pawns
-        
+
         return false;
     }
-    isKnight(piece: string):boolean {
+    isKnight(piece: string): boolean {
         return piece === Piece.WHITE_KNIGHT || piece === Piece.BLACK_KNIGHT;
     }
     isRook(piece: string) {
         return piece === Piece.WHITE_ROOK || piece === Piece.BLACK_ROOK;
-    } 
+    }
     isQueen(piece: string) {
         return piece === Piece.WHITE_QUEEN || piece === Piece.BLACK_QUEEN;
-    }  
-   
+    }
+
 
     /*
         Recursive function.
         Returns the closest piece in a given direction.
         If no piece is found, returns undefined.
     */
-    public closestPiece (from: Square, direction:Direction):string|undefined{
+    public closestPiece(from: Square, direction: Direction): string | undefined {
         let toSquare = from + direction;
-        if (toSquare < Square.a1 || toSquare > Square.h8){return undefined;}
-        else if (this.squares[toSquare] !== undefined){return this.squares[toSquare];}
-        else{return this.closestPiece(toSquare, direction);}
+        if (toSquare < Square.a1 || toSquare > Square.h8) { return undefined; }
+        else if (this.squares[toSquare] !== undefined) { return this.squares[toSquare]; }
+        else { return this.closestPiece(toSquare, direction); }
     }
 
     private rmCastlingRightsForSide(from: Square) {
