@@ -17,7 +17,7 @@ export class Board {
 
     /*Halfmove clock: Nr of halfmoves since the last pawn advance or capture. 
       When 100 (50 full moves), it's a draw.*/
-    halfMoveClock: string;
+    halfMoveClock: number;
 
     //Fullmove number: Starts at 1, incremented after black's move
     fullMoveNumber: number;

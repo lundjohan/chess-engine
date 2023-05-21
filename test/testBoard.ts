@@ -97,7 +97,7 @@ describe('Chess Board', function () {
                 assert.equal(result.enPassantSq, Square.c6);
             });
             it('should have correct halfmove clock', function () {
-                assert.equal(result.halfMoveClock, '0');
+                assert.equal(result.halfMoveClock, 0);
             });
             it('should have correct fullmove number', function () {
                 assert.equal(result.fullMoveNumber, 2);
@@ -300,7 +300,7 @@ describe('Chess Board', function () {
                 assert.equal(b.getPieceAt(Square.g1),undefined);
             });
             it('and the halfmoveClock should have the same nr as before move', function () {
-                assert.equal(b.halfMoveClock, '0');
+                assert.equal(b.halfMoveClock, 0);
             });
         });
     });
