@@ -57,24 +57,7 @@ export class Board {
                 //illegal move => return  
                 return;
             }
-            //move rook
-            //white & queen side?
-            if (this.whiteMoveNext && to === Square.c1) {
-                this.squares[Square.a1] = undefined;
-                this.squares[Square.d1] = Piece.WHITE_ROOK;
-            }
-            else if(this.whiteMoveNext && to === Square.g1) {
-                this.squares[Square.h1] = undefined;
-                this.squares[Square.f1] = Piece.WHITE_ROOK;
-            }
-            else if (!this.whiteMoveNext && to === Square.c8) {
-                this.squares[Square.a8] = undefined;
-                this.squares[Square.d8] = Piece.BLACK_ROOK;
-            }
-            else if (!this.whiteMoveNext && to === Square.g8) {
-                this.squares[Square.h8] = undefined;
-                this.squares[Square.f8] = Piece.BLACK_ROOK;
-            }
+            this.doCastling(to);
         }
         //en passant made?
         else if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
@@ -118,6 +101,26 @@ export class Board {
     
         // Use the some() method to check if any square is in check
         return kingSquares.some(sq => this.isSquareChecked(sq, this.whiteMoveNext));
+    }
+    private doCastling(to: Square) {
+         //move rook
+            //white & queen side?
+            if (this.whiteMoveNext && to === Square.c1) {
+                this.squares[Square.a1] = undefined;
+                this.squares[Square.d1] = Piece.WHITE_ROOK;
+            }
+            else if(this.whiteMoveNext && to === Square.g1) {
+                this.squares[Square.h1] = undefined;
+                this.squares[Square.f1] = Piece.WHITE_ROOK;
+            }
+            else if (!this.whiteMoveNext && to === Square.c8) {
+                this.squares[Square.a8] = undefined;
+                this.squares[Square.d8] = Piece.BLACK_ROOK;
+            }
+            else if (!this.whiteMoveNext && to === Square.g8) {
+                this.squares[Square.h8] = undefined;
+                this.squares[Square.f8] = Piece.BLACK_ROOK;
+            }
     }
     private isSquareChecked(sq: Square, whiteInDefence: boolean): boolean {
         //first check if there are enemy knights threatening the square
