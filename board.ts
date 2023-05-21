@@ -211,9 +211,6 @@ export class Board {
         else if (this.squares[toSquare] !== undefined) { return this.squares[toSquare]; }
         else { return this.closestPiece(toSquare, direction); }
     }
-    private moveRook(from: Square, to: Square) {
-    }
-
     /*One FEN string or record consists of six fields separated by a space character: 
     1. Piece placement
     2. Active color
