@@ -59,9 +59,7 @@ export class Board {
             }
             this.doCastling(to);
         }
-        //en passant made?
-        else if (this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
-            && (Math.abs(distanceNorthBetween(from, to)) === 2)) {
+        else if (this.isEnPassant(from, to)) {
             /*find square for en passant
             (to - from)/2 will give 8, but it also gives the direction (+ for white, - for black)
             */
@@ -121,6 +119,10 @@ export class Board {
             this.squares[Square.h8] = undefined;
             this.squares[Square.f8] = Piece.BLACK_ROOK;
         }
+    }
+    private isEnPassant(from: Square, to: Square): boolean {
+        return this.getPieceAt(from) == Piece.WHITE_PAWN || this.getPieceAt(from) == Piece.BLACK_PAWN
+            && (Math.abs(distanceNorthBetween(from, to)) === 2)
     }
     private isSquareChecked(sq: Square, whiteInDefence: boolean): boolean {
         //first check if there are enemy knights threatening the square
