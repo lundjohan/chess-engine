@@ -49,7 +49,6 @@ export class Board {
 
     }
     private move(from: Square, to: Square) {
-        let piece: string = this.getPieceAt(from);
         //castling 
         //castlingIsChecked perhaps should be used somewhere else, 
         //like for example kings possible moves when nodes are created
@@ -85,7 +84,8 @@ export class Board {
             */
             this.enPassantSq = (to - from) / 2 + from;
         }
-
+        
+        let piece: string = this.getPieceAt(from);
         //move piece
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
