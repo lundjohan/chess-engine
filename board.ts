@@ -69,8 +69,6 @@ export class Board {
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
 
-        if (!this.whiteMoveNext) { this.fullMoveNumber++; }
-
         if (piece === Piece.WHITE_KING || piece === Piece.BLACK_KING) {
             this.rmAllCastlingRightsFor(this.whiteMoveNext);
         }
@@ -81,6 +79,9 @@ export class Board {
 
         //change turn
         this.whiteMoveNext = !this.whiteMoveNext;
+
+        //fullmove change
+        if (this.whiteMoveNext) { this.fullMoveNumber++; }
 
         //halfmove clock ++ ?
 
