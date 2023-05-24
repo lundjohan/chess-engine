@@ -319,7 +319,7 @@ describe('Chess Board', function () {
         });
     });
     describe('moveFEN()', function () {
-        const b = Board.newGame('k7/8/p7/8/1P6/8/8/K7 w KQkq c6 0 2');
+        const b = Board.newGame('k7/8/p7/8/1P6/8/8/K7 w KQkq - 0 2');
         it('should start this board with halfmoveclock at 0', function () {
             assert.equal(b.halfMoveClock, 0);
         });
