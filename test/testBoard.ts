@@ -349,4 +349,15 @@ describe('Chess Board', function () {
             assert.equal(b.halfMoveClock, 1);
         });
     });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2');
+        
+        it('should do nothing on request of capturing same color', function () {
+            b.moveFEN('a1a2');
+            assert.equal(b.getPieceAt(Square.a2), Piece.WHITE_PAWN);
+        });
+        it('should not change turn after request of capturing same color', function () {
+            assert.equal(b.whiteMoveNext, true);
+        });
+    });
 });
