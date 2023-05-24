@@ -339,4 +339,14 @@ describe('Chess Board', function () {
             assert.equal(b.halfMoveClock, 1);
         });
     });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/8/8/p7/8/R7/8/K7 w KQkq - 0 2');
+        it('should capture black pawn with white rook', function () {
+            b.moveFEN('a3a5');
+            assert.equal(b.getPieceAt(Square.a5), Piece.WHITE_ROOK);
+        });
+        it('should increase halfmoveclock after capture', function () {
+            assert.equal(b.halfMoveClock, 1);
+        });
+    });
 });
