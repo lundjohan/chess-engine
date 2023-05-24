@@ -49,11 +49,11 @@ export class Board {
 
     }
     private move(from: Square, to: Square) {
-        let increaseHalfMove:boolean = false;
+        let isPawnAdvance:boolean = false;
         
         switch (this.getPieceAt(from).toLocaleUpperCase()) {
             case 'P':{
-                increaseHalfMove = true;
+                isPawnAdvance = true;
                 break;
             }
         }
@@ -85,7 +85,7 @@ export class Board {
         if (this.whiteMoveNext) { this.fullMoveNumber++; }
 
         //halfmove clock ++ ?
-        increaseHalfMove ? this.halfMoveClock++ :this.halfMoveClock = 0;
+        isPawnAdvance ? this.halfMoveClock++ :this.halfMoveClock = 0;
 
         //pieces taken?
 
