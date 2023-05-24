@@ -50,6 +50,7 @@ export class Board {
     }
     private move(from: Square, to: Square) {
         let isPawnAdvance:boolean = false;
+        let isCapture:boolean = false;
         
         switch (this.getPieceAt(from).toLocaleUpperCase()) {
             case 'P':{
@@ -74,6 +75,9 @@ export class Board {
         }
         this.rmCastlingRightsIfAppropriate(from);
 
+        //capture (does NOT check for same color!)
+        isCapture = this.getPieceAt(to) !== undefined;
+
         //move piece
         this.squares[to] = this.squares[from];
         this.squares[from] = undefined;
@@ -85,10 +89,7 @@ export class Board {
         if (this.whiteMoveNext) { this.fullMoveNumber++; }
 
         //halfmove clock ++ ?
-        isPawnAdvance ? this.halfMoveClock++ :this.halfMoveClock = 0;
-
-        //pieces taken?
-
+        isPawnAdvance || isCapture ? this.halfMoveClock++ :this.halfMoveClock = 0;
     }
     private isCastling(from: Square, to: Square): boolean {
         return this.getPieceAt(from) === (Piece.WHITE_KING || Piece.BLACK_KING)
