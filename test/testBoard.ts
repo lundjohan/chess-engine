@@ -321,10 +321,16 @@ describe('Chess Board', function () {
     describe('moveFEN()', function () {
         const b = Board.newGame('k7/8/p7/8/1P6/8/8/K7 w KQkq c6 0 2');
         b.moveFEN('a1a2');
+        it('should move the white king from a1 to a2', function () {
+            assert.equal(b.getPieceAt(Square.a2), Piece.WHITE_KING);
+        });
         it('should not increase halfmoveclock when king moves', function () {
             assert.equal(b.halfMoveClock, 0);
         }); 
         b.moveFEN('a6a5')
+        it('should move the black pawn from a6 to a5', function () {
+            assert.equal(b.getPieceAt(Square.a5), Piece.BLACK_PAWN);
+        });
         it('should increase halfmoveclock when pawn moves', function () {
             assert.equal(b.halfMoveClock, 1);
         });
