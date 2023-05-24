@@ -318,4 +318,15 @@ describe('Chess Board', function () {
             assert.equal(piece2, Piece.BLACK_QUEEN);
         });
     });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/8/p7/8/1P6/8/8/K7 w KQkq c6 0 2');
+        b.moveFEN('a1a2');
+        it('should not increase halfmoveclock when king moves', function () {
+            assert.equal(b.halfMoveClock, 0);
+        }); 
+        b.moveFEN('a6a5')
+        it('should increase halfmoveclock when pawn moves', function () {
+            assert.equal(b.halfMoveClock, 1);
+        });
+    });
 });
