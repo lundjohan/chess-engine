@@ -360,4 +360,22 @@ describe('Chess Board', function () {
             assert.equal(b.whiteMoveNext, true);
         });
     });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/7P/8/8/8/8/8/K7 w KQkq - 0 2');
+        it('should promote white pawn to queen with small q', function () {
+            //UCI protocol doesnt mention whether it has to be Q for promoting white...
+            //so make it agnostic
+            b.moveFEN('h7h8q');
+            assert.equal(b.getPieceAt(Square.h8), Piece.WHITE_QUEEN);
+        });
+    });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/7P/8/8/8/8/8/K7 w KQkq - 0 2');
+        it('should promote white pawn to queen with big Q', function () {
+            //UCI protocol doesnt mention whether it has to be Q for promoting white...
+            //so make it agnostic
+            b.moveFEN('h7h8Q');
+            assert.equal(b.getPieceAt(Square.h8), Piece.WHITE_QUEEN);
+        });
+    });
 });
