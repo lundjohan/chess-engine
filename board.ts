@@ -51,6 +51,12 @@ export class Board {
     private move(from: Square, to: Square) {
         let isPawnAdvance:boolean = false;
         let isCapture:boolean = false;
+
+        //capturing own color => illegal move => return
+        if (this.getPieceAt(to) !== undefined 
+            && isPieceWhite(this.getPieceAt(from)) === isPieceWhite(this.getPieceAt(to))) {
+            return;
+        }
         
         switch (this.getPieceAt(from).toLocaleUpperCase()) {
             case 'P':{
