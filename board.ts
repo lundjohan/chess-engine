@@ -41,10 +41,16 @@ export class Board {
         let from: number = Square[fenStr.substring(0, 2)];
         let to: number = Square[fenStr.substring(2, 4)];
 
+        //move changes whiteMoveNext
         this.move(from, to)
 
         //promotion
         if (fenStr.length === 5) {
+            //this line is not nice: !this.whiteMoveNext 
+            //(a must because move has already changed whiteMoveNext)
+            let coloredPiece = !this.whiteMoveNext ? 
+            fenStr[4].toLocaleUpperCase() : fenStr[4].toLocaleLowerCase();
+            this.squares[to] = coloredPiece;
         }
 
     }
