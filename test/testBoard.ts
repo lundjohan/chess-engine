@@ -378,4 +378,38 @@ describe('Chess Board', function () {
             assert.equal(b.getPieceAt(Square.h8), Piece.WHITE_QUEEN);
         });
     });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/7P/8/8/8/8/8/K7 w KQkq - 0 2');
+        it('should promote white pawn to queen with small q', function () {
+            //UCI protocol doesnt mention whether it has to be Q for promoting white...
+            //so make it agnostic
+            b.moveFEN('h7h8q');
+            assert.equal(b.getPieceAt(Square.h8), Piece.WHITE_QUEEN);
+        });
+    });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/7P/8/8/8/8/8/K7 w KQkq - 0 2');
+        it('should promote white pawn to queen with big Q', function () {
+            //UCI protocol doesnt mention whether it has to be Q for promoting white...
+            //so make it agnostic
+            b.moveFEN('h7h8Q');
+            assert.equal(b.getPieceAt(Square.h8), Piece.WHITE_QUEEN);
+        });
+    });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/8/8/8/8/8/7p/K7 b - 0 2');
+        it('should promote black pawn to rook with input of small r', function () {
+            b.moveFEN('h2h1r');
+            assert.equal(b.getPieceAt(Square.h1), Piece.BLACK_ROOK);
+        });
+    });
+    describe('moveFEN()', function () {
+        const b = Board.newGame('k7/8/8/8/8/8/7p/K7 b - 0 2');
+        it('should promote black pawn to rook with input of big R', function () {
+            //UCI protocol doesnt mention whether it has to be Q for promoting white...
+            //so make it agnostic
+            b.moveFEN('h2h1R');
+            assert.equal(b.getPieceAt(Square.h1), Piece.BLACK_ROOK);
+        });
+    });
 });
