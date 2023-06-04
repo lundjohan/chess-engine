@@ -6,3 +6,7 @@ testboard.ts
   - test isSquareChecked with threats by knights, bishops & pawns & other king
   - test for when en Passant square is initiated at '-'. What happens? How is this represented internally in board?
   - test that you cannot move from an empty square 
+  - test for check
+  - test for checkmate
+  - test that all possible draws are executed
+  - Actually the protocol shows that promotion should be done with small last letter ('q' for white queen) => remove unnecessary testcode and code in board.
